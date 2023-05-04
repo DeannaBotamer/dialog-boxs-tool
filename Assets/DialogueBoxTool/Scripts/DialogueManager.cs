@@ -7,6 +7,8 @@ public class DialogueManager : MonoBehaviour
 {
     public Text nameText;
     public Text dialogueText;
+    public Sprite mySprite;
+    public Image original;
 
     private Queue<string> sentences;
 
@@ -38,11 +40,14 @@ public class DialogueManager : MonoBehaviour
         }
 
         string sentence = sentences.Dequeue();
+        //for clearing scrolling text for the next sentence
         StopAllCoroutines();
+        //scrolling text
         StartCoroutine(TypeSentence(sentence));
 
     }
 
+    //for scrolling text
     IEnumerator TypeSentence (string sentence)
     {
         dialogueText.text = "";
@@ -54,8 +59,15 @@ public class DialogueManager : MonoBehaviour
     }
     void EndDialogue()
     {
-        dialogueText.text = "";
-        nameText.text = "";
+        //resets to start state
+        dialogueText.text = ". . . . .";
+        nameText.text = ". . .";
+        SpriteChange();
     }
 
+    //to change back to a blank Sprite
+    void SpriteChange()
+    {
+        original.sprite = mySprite;
+    }
 }
